@@ -29,12 +29,22 @@ npm install
 npm run dev
 ```
 
-**配合 Clawd 桌宠**
+**配合 Clawd 桌宠（推荐）**
 
-1. 安装 [Clawd-on-Desk](https://github.com/rullerzhou-afk/clawd-on-desk)
-2. 给 Clawd 加 `/bubble` HTTP 接口补丁（让小螃蟹能说话），具体方法见 `docs/clawd-patch.md`
-3. 同时启动 Clawd 和 Clawd Todo，开始享受小螃蟹陪你学习的乐趣
+让小螃蟹会说话、能拍一拍：
 
+1. 先安装原版 [Clawd-on-Desk](https://github.com/rullerzhou-afk/clawd-on-desk/releases) 桌宠
+2. 在本项目目录运行一键补丁脚本：
+
+```bash
+npm run patch-clawd
+```
+
+脚本会自动检测 Clawd 安装位置，备份原始文件，注入气泡说话接口和拍一拍互动，然后重启 Clawd。
+
+3. 启动 Clawd Todo，完成任务时小螃蟹就会在头顶冒话啦 🦀💬
+
+> 注：补丁脚本只修改本地 Clawd，不分发 Clawd 任何素材，原始文件会自动备份为 `app.asar.backup`，需要恢复时手动覆盖回去即可。
 **技术栈**
 
 Electron + React + Vite，本地 JSON 持久化，通过 `127.0.0.1:23333` 与 Clawd 通信。
