@@ -2,5 +2,35 @@
 dist/
 release/
 *.log
+
+# user data (个人数据，不上传)
 study-history.json
+tasks.json
+todos.json
+notes.json
+stickynotes.json
+notepad.json
+*.userdata.json
+data/
+userdata/
+
+# build artifacts
+.cache/
+.vite/
+.parcel-cache/
+
+# IDE
 .claude/
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# env
+.env
+.env.local
+*.local

@@ -8,7 +8,8 @@
     "build": "vite build",
     "dist": "vite build && electron-packager . \"Study Widget\" --platform=win32 --arch=x64 --out=release --overwrite --asar --ignore=\"/node_modules\" --ignore=\"/src\" --ignore=\"/release\" --ignore=\"index\\.html\" --ignore=\"vite\\.config\\.js\" --ignore=\"package-lock\\.json\"",
     "dist-builder": "vite build && electron-builder",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "patch-clawd": "node scripts/install-clawd-patch.js"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -16,6 +17,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@electron/asar": "^3.2.0",
     "@electron/packager": "^19.1.0",
     "@vitejs/plugin-react": "^4.2.0",
     "concurrently": "^8.2.0",
