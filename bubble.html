@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+.wrap {
+  display: inline-block;
+  min-width: 80px;
+  max-width: 200px;
+  padding: 0 4px 16px 4px;
+  opacity: 0;
+  transform-origin: bottom left;
+  animation: popIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.wrap.hiding {
+  animation: fadeOut 0.38s ease-out forwards;
+}
+
+.box {
+  background: #fff;
+  border: 2.5px solid #1a1a1a;
+  border-radius: 18px;
+  padding: 9px 13px;
+  font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #111;
+  white-space: pre-wrap;
+  word-break: break-word;
+  box-shadow: 3px 3px 0 #1a1a1a;
+  position: relative;
+}
+
+/* Speech bubble arrow (points down-left toward Clawd) */
+.arrow-out {
+  position: absolute;
+  bottom: 4px;
+  left: 18px;
+  width: 0; height: 0;
+  border-left: 9px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 13px solid #1a1a1a;
+}
+.arrow-in {
+  position: absolute;
+  bottom: 7px;
+  left: 20px;
+  width: 0; height: 0;
+  border-left: 7.5px solid transparent;
+  border-right: 2px solid transparent;
+  border-top: 11px solid #fff;
+}
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.65) translateY(8px); }
+  100% { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+@keyframes fadeOut {
+  0%   { opacity: 1; transform: scale(1);    }
+  100% { opacity: 0; transform: scale(0.88) translateY(-4px); }
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+  <div class="box" id="txt">…</div>
+  <div class="arrow-out"></div>
+  <div class="arrow-in"></div>
+</div>
+<script>
+const wrap = document.getElementById('wrap');
+const txt  = document.getElementById('txt');
+let hideTimer = null;
+
+window.bubbleAPI.onShow((text) => {
+  if (hideTimer) clearTimeout(hideTimer);
+  wrap.classList.remove('hiding');
+  // Force reflow to restart animation
+  wrap.style.animation = 'none';
+  void wrap.offsetWidth;
+  wrap.style.animation = '';
+  wrap.classList.remove('hiding');
+  txt.textContent = text;
+
+  // Report size after render
+  requestAnimationFrame(() => {
+    window.bubbleAPI.reportSize(
+      wrap.offsetWidth + 8,
+      wrap.offsetHeight + 8
+    );
+  });
+});
+
+window.bubbleAPI.onHide(() => {
+  wrap.classList.add('hiding');
+});
+</script>
+</body>
+</html>

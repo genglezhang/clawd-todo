@@ -1,0 +1,6 @@
+﻿node_modules/
+dist/
+release/
+*.log
+study-history.json
+.claude/
